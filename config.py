@@ -1,0 +1,4 @@
+SCRWID = 720
+SCRHEI = 405
+
+FPS = 60
