@@ -13,7 +13,7 @@ class Game():
         
         self.background = background.Background(0,0)
 
-        self.player = player.Player(100,295)
+        self.player = player.Player(100,240)
 
         self.run = True
 
