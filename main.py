@@ -14,6 +14,7 @@ class Game():
         self.background = background.Background(0,0)
 
         self.player = player.Player(100,240)
+        self.obstacle = obstacles.Obstacles()
 
         self.run = True
 
@@ -25,6 +26,7 @@ class Game():
         self.background.update()
 
         self.player.draw(self.screen)
+        self.obstacle.draw(self.screen)
         
         py.display.update()
         self.clock.tick(config.FPS)
