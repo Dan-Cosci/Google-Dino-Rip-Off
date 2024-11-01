@@ -25,7 +25,6 @@ class Game():
         self.background.update()
 
         self.player.draw(self.screen)
-        self.player.gravity()
         
         py.display.update()
         self.clock.tick(config.FPS)

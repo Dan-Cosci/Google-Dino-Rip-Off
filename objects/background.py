@@ -1,11 +1,12 @@
 import pygame as py
+import config
 
 class Background(py.sprite.Sprite):
     def __init__(self, x, y):
         py.sprite.Sprite.__init__(self)
 
-        self.bg_speed = 1
-        self. gr_speed = 3
+        self.bg_speed = config.background_spd
+        self.gr_speed = config.ground_spd
 
         self.bg = py.image.load("assets/background.png").convert_alpha()
         self.bg = py.transform.scale_by(self.bg, 6)  

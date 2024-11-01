@@ -1,4 +1,5 @@
 import pygame as py
+import config
 
 class Player(py.sprite.Sprite):
     def __init__(self, x, y):
@@ -51,21 +52,16 @@ class Player(py.sprite.Sprite):
         self.current_img = py.transform.scale_by(self.current_img, 3.5)
         screen.blit(self.current_img, self.img_rect)
 
-    def gravity(self):
-        # if self.img_rect.y < 222:
-        #     self.grav += self.gravity_index 
-        #     self.img_rect.y += self.grav
-        # else:
-        #     self.grav = 0
-        #     self.img_rect.y = 222
-        pass
 
     def movement(self):
         self.keys = py.key.get_pressed()
         if self.keys[py.K_LEFT]:
-            self.img_rect.x -=5
+            if self.img_rect.x > 0:
+                self.img_rect.x -=5
+
         if self.keys[py.K_RIGHT]:
-            self.img_rect.x +=5
+            if self.img_rect.x < (config.SCRWID - self.current_img.get_width()):
+                self.img_rect.x +=5
         
         if not self.is_jump:    
             if self.keys[py.K_UP]:
