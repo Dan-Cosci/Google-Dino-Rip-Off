@@ -9,6 +9,7 @@ class Player(py.sprite.Sprite):
             py.image.load("assets/frame_1.png").convert_alpha(),
             py.image.load("assets/frame_2.png").convert_alpha()
         ]
+
         self.img_jump = [
             py.image.load("assets/jump_1.png").convert_alpha(),
             py.image.load("assets/jump_2.png").convert_alpha()
@@ -16,12 +17,14 @@ class Player(py.sprite.Sprite):
         self.img_index = 0
         self.counter = 0
 
-        self.current_img = self.image[self.img_index]        
+        self.current_img = py.transform.scale_by(self.image[self.img_index], 3.5)        
         self.img_rect = self.current_img.get_rect(midbottom = (x,y))
         self.ground = self.img_rect.y
 
         self.is_jump = False
         self.jumpcount = 10
+
+        self.color = 'red'
 
         self.gravity_index = 0.2
         self.grav = 0
@@ -51,6 +54,7 @@ class Player(py.sprite.Sprite):
 
         self.current_img = py.transform.scale_by(self.current_img, 3.5)
         screen.blit(self.current_img, self.img_rect)
+        py.draw.rect(screen, self.color, self.img_rect)
 
 
     def movement(self):
