@@ -4,4 +4,4 @@ SCRHEI = 405
 FPS = 60
 
 background_spd = 1
-ground_spd = 3
+ground_spd = 5
