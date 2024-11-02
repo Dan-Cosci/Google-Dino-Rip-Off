@@ -61,11 +61,11 @@ class Player(py.sprite.Sprite):
         self.keys = py.key.get_pressed()
         if self.keys[py.K_LEFT]:
             if self.img_rect.x > 0:
-                self.img_rect.x -=5
+                self.img_rect.x -= 3
 
         if self.keys[py.K_RIGHT]:
             if self.img_rect.x < (config.SCRWID - self.current_img.get_width()):
-                self.img_rect.x +=5
+                self.img_rect.x += 5
         
         if not self.is_jump:    
             if self.keys[py.K_UP]:
