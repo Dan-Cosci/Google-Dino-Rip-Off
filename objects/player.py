@@ -54,7 +54,7 @@ class Player(py.sprite.Sprite):
 
         self.current_img = py.transform.scale_by(self.current_img, 3.5)
         screen.blit(self.current_img, self.img_rect)
-        py.draw.rect(screen, self.color, self.img_rect)
+        # py.draw.rect(screen, self.color, self.img_rect)
 
 
     def movement(self):

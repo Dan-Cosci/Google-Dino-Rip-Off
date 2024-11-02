@@ -2,7 +2,7 @@ import pygame as py
 import config
 
 class Fly(py.sprite.Sprite):
-    def __init__(self,x,y):
+    def __init__(self,x, y):
         py.sprite.Sprite.__init__(self)
         self.fly_img = [
             py.image.load("assets/fly_1.png").convert_alpha(),
@@ -29,15 +29,16 @@ class Fly(py.sprite.Sprite):
         
         # py.draw.rect(screen, 'red', self.img_rect)
         
-        self.img_rect.x -= 5
-        if self.img_rect.x <= -1 * self.current_img.get_width():
-            self.img_rect.x = config.SCRWID
+        # self.img_rect.x -= 5
+        # if self.img_rect.x <= -1 * self.current_img.get_width():
+        #     self.img_rect.x = config.SCRWID
 
 class Box(py.sprite.Sprite):
-    def __init__(self):
+    def __init__(self, x, y,):
         py.sprite.Sprite.__init__(self)
 
         self.img = py.transform.scale_by(py.image.load("assets/ground_obstacle.png"), 2.5)
+        self.img_rect = self.img.get_rect(midbottom = (x,y))
     
     def draw(self,screen):
-        screen.blit(self.img, (100, 100) )
+        screen.blit(self.img, self.img_rect)
