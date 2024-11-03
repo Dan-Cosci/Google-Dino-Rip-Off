@@ -7,6 +7,7 @@ from objects import background, obstacles, player
 class Game():
     def __init__(self,scrwid, scrhei):
         py.init()
+
         self.clock = py.time.Clock()
         self.screen = py.display.set_mode((scrwid, scrhei))
         py.display.set_caption("Dino Game Rip Off")

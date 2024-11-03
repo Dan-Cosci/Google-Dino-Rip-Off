@@ -70,6 +70,8 @@ class Player(py.sprite.Sprite):
         if not self.is_jump:    
             if self.keys[py.K_UP]:
                 self.is_jump = True
+                self.jumpsound = py.mixer.Sound("assets/audio_jump.mp3")
+                self.jumpsound.play()
         else:
             if self.jumpcount >= -10:
                 neg = 1
