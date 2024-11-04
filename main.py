@@ -52,6 +52,7 @@ class Game():
             if self.player.img_rect.colliderect(obj.img_rect):
                 print("collided with fly")
                 self.reset_game()
+                self.run = False
 
 
         for obj in self.obstacle_list_2:
@@ -63,6 +64,7 @@ class Game():
             if self.player.img_rect.colliderect(obj.img_rect):
                 print("collided with block")
                 self.reset_game()
+                self.run = False
 
 
     def draw(self):
@@ -87,9 +89,7 @@ class Game():
                     self.obstacle_gen()
 
             self.player.movement()        
-            self.draw()
-
-        py.quit()     
+            self.draw()  
 
 if __name__ == "__main__":
     game = Game(config.SCRWID,config.SCRHEI)
