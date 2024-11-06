@@ -19,50 +19,43 @@ class Game():
         self.start_pos = self.player.img_rect
 
         self.run = True
+        self.score = 0        
+        self.passed_1 = False
 
         self.obstacle_list_1 = []
-        self.obstacle_list_2 = []
         self.obstacle_timer = py.USEREVENT + 1
-        py.time.set_timer(self.obstacle_timer, 1200)
+        py.time.set_timer(self.obstacle_timer, 700)
 
 
     def reset_game(self):
         self.obstacle_list_1.clear()
-        self.obstacle_list_2.clear()
         self.player.img_rect.midbottom = [100, 293]
 
 
     def obstacle_gen(self):
-        choice_1 = rand.randint(0,1)
+        choice_1 = 0 # rand.randint(0,1)
         if choice_1 == 0:
-            self.obstacle_list_1.append(obstacles.Fly(rand.randint(750,900), rand.randint(100 ,290)))
+            self.obstacle_list_1.append(obstacles.Fly(rand.randint(750,1000), rand.randint(150 ,290)))
         
-        choice_2 = rand.randint(0,3)
-        if choice_2 == 0:
-            self.obstacle_list_2.append(obstacles.Box(rand.randint(750,950), 295))
-
-
     def obstacle_loop(self):
+        
         for obj in self.obstacle_list_1:
             obj.img_rect.x  -= 9
             obj.draw(self.screen)
             if obj.img_rect.x <= - 100:
                 self.obstacle_list_1.pop(0)
 
-            if self.player.img_rect.colliderect(obj.img_rect):
-                print("collided with fly")
-                self.reset_game()
-                self.run = False
+            if self.player.img_rect.left  > obj.img_rect.left\
+                and self.player.img_rect.right < obj.img_rect.right\
+                and self.passed_1 == False:
+                self.passed_1 = True
+            if self.passed_1 == True:    
+                if self.player.img_rect.left  > obj.img_rect.right:
+                    self.score += 1
+                    print(self.score)
+                    self.passed_1 = False
 
-
-        for obj in self.obstacle_list_2:
-            obj.img_rect.x  -= config.ground_spd
-            obj.draw(self.screen)
-            if obj.img_rect.x <= - 100:
-                self.obstacle_list_2.pop(0)        
-            
             if self.player.img_rect.colliderect(obj.img_rect):
-                print("collided with block")
                 self.reset_game()
                 self.run = False
 
@@ -89,7 +82,8 @@ class Game():
                     self.obstacle_gen()
 
             self.player.movement()        
-            self.draw()  
+            self.draw()
+        return self.score
 
 if __name__ == "__main__":
     game = Game(config.SCRWID,config.SCRHEI)

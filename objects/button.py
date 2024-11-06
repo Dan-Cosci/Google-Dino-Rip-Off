@@ -1,8 +1,5 @@
 import pygame as py
 
-
-
-
 class Button(py.sprite.Sprite):
     def __init__(self, x,y, scale, image):
         py.sprite.Sprite.__init__(self)
