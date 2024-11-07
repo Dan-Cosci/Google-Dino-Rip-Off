@@ -78,7 +78,7 @@ class Player(py.sprite.Sprite):
                 if self.jumpcount < 0:
                     neg = -1
                 self.img_rect.y -= (self.jumpcount ** 2) * 0.2 * neg
-                self.jumpcount -= 0.6
+                self.jumpcount -= 0.5
             else:
                 self.jumpcount = 10
                 self.is_jump = False
