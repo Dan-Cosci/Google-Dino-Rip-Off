@@ -7,13 +7,15 @@ class Button(py.sprite.Sprite):
         self.img = py.transform.scale_by(self.img, scale)
         self.img_rect = self.img.get_rect(center = (x,y))
 
+        self.press = py.mixer.Sound("assets/audio_jump.mp3")
+
         self.clicked = False
 
     def if_click(self):
         pos = py.mouse.get_pos()
         if self.img_rect.collidepoint(pos):
             if py.mouse.get_pressed()[0] ==  1:
-                print("clicked")
+                self.press.play()
                 self.clicked = True
         
     def click(self):

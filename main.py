@@ -1,90 +1,113 @@
+import os
 import pygame as py
-import random as rand
+import json
 
 import config
-from objects import background, obstacles, player
+from objects import background, button
+from game import Game
 
-class Game():
-    def __init__(self,scrwid, scrhei):
+class Menu():
+    def __init__(self):
         py.init()
 
         self.clock = py.time.Clock()
-        self.screen = py.display.set_mode((scrwid, scrhei))
+        self.screen = py.display.set_mode((config.SCRWID, config.SCRHEI))
         py.display.set_caption("Dino Game Rip Off")
-        py.display.set_icon(py.image.load("assets/frame_1.png"))
+        py.display.set_icon(py.image.load("assets/standing.png"))
+
+        self.img = py.image.load("assets/start.png").convert_alpha()
+        self.bg = background.Background(0,0)
+
+        self.title = py.font.Font('assets/dogica.ttf', 40)
+        self.title_2 = py.font.Font('assets/dogica.ttf', 15)
+
+        self.game_score = 0
+        self.cur_high = self.get_high()
+
+        self.start = button.Button(config.SCRWID / 2,
+                                   config.SCRHEI / 2, 
+                                   3.5, 
+                                   self.img)
+
+        self.running = True
+    
+    def file_check(self):
+        if not os.path.exists('src/score.json'):
+            print("Creating file object")
+            os.mkdir('src')
+            with open('src/score.json', 'w') as file:
+                score = {'Highscore' : 0}
+                json.dump(score, file, indent = 1)
+
+
+    def get_high(self):
         
-        self.background = background.Background(0,0)
+        self.file_check()
 
-        self.player = player.Player(100,293)
-        self.start_pos = self.player.img_rect
-
-        self.run = True
-        self.score = 0        
-        self.passed_1 = False
-
-        self.obstacle_list_1 = []
-        self.obstacle_timer = py.USEREVENT + 1
-        py.time.set_timer(self.obstacle_timer, 700)
+        with open('src/score.json', 'r') as file:
+            data = json.load(file)
+        return data['Highscore']
 
 
-    def reset_game(self):
-        self.obstacle_list_1.clear()
-        self.player.img_rect.midbottom = [100, 293]
+    def score_check(self):
+        with open('src/score.json', 'r') as file:
+            data = json.load(file)
+        if data['Highscore'] < self.game_score:
+            data['Highscore'] = self.game_score
+            with open('src/score.json', 'w') as file_2:
+                json.dump(data, file_2, indent= 2)
 
-
-    def obstacle_gen(self):
-        choice_1 = 0 # rand.randint(0,1)
-        if choice_1 == 0:
-            self.obstacle_list_1.append(obstacles.Fly(rand.randint(750,1000), rand.randint(150 ,290)))
+    def draw_text(self, screen):
+        title1 = self.title.render("Pixel Runner",False,"Black")
+        pos1 = title1.get_rect(center = (config.SCRWID / 2, config.SCRHEI / 2  - 100))
         
-    def obstacle_loop(self):
+        if self.cur_high < self.game_score:
+            self.cur_high = self.game_score
+
+        title2 = self.title_2.render(f"Highscore:{str(self.cur_high)}" ,False,"Black")
+        pos2 = title2.get_rect(center = (config.SCRWID / 2, config.SCRHEI / 2  - 50))
         
-        for obj in self.obstacle_list_1:
-            obj.img_rect.x  -= 9
-            obj.draw(self.screen)
-            if obj.img_rect.x <= - 100:
-                self.obstacle_list_1.pop(0)
-
-            if self.player.img_rect.left  > obj.img_rect.left\
-                and self.player.img_rect.right < obj.img_rect.right\
-                and self.passed_1 == False:
-                self.passed_1 = True
-            if self.passed_1 == True:    
-                if self.player.img_rect.left  > obj.img_rect.right:
-                    self.score += 1
-                    print(self.score)
-                    self.passed_1 = False
-
-            if self.player.img_rect.colliderect(obj.img_rect):
-                self.reset_game()
-                self.run = False
-
+        screen.blit(title2,pos2)
+        screen.blit(title1,pos1)
 
     def draw(self):
-        self.screen.fill("violet")
-
-        self.background.draw(self.screen)
-        self.background.update()
-
-        self.obstacle_loop()
-
-        self.player.draw(self.screen)
+        self.bg.draw(self.screen)
+        self.bg.update()
+        
+        self.draw_text(self.screen)
+        self.start.draw(self.screen)
+        
         py.display.update()
-        self.clock.tick(config.FPS)
+    
+    def action(self):
+        self.start.if_click()
+        if self.start.clicked:
+            self.game = Game(config.SCRWID, config.SCRHEI)
+            self.game.game_loop()
+            if self.game.run == False:
+                self.start.clicked = False
+            self.game_score = self.game.score
+            self.cur_high = self.get_high()
 
+    def main_menu(self):
+        self.file_check()
 
-    def game_loop(self):
-        while self.run:
+        while self.running:
+            
             for event in py.event.get():
                 if event.type == py.QUIT:
-                    self.run = False
-                if event.type == self.obstacle_timer:
-                    self.obstacle_gen()
-
-            self.player.movement()        
+                    self.running = False
+                    py.quit()
+            
             self.draw()
-        return self.score
+            self.action()
+            self.score_check()
+
+
+            self.clock.tick(config.FPS)
+        
+
 
 if __name__ == "__main__":
-    game = Game(config.SCRWID,config.SCRHEI)
-    game.game_loop()
+    menu = Menu()
+    menu.main_menu()
