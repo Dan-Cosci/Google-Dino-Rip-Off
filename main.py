@@ -10,6 +10,7 @@ class Menu():
     def __init__(self):
         py.init()
 
+        py.mixer.init()
         self.clock = py.time.Clock()
         self.screen = py.display.set_mode((config.SCRWID, config.SCRHEI))
         py.display.set_caption("Dino Game Rip Off")
@@ -17,6 +18,9 @@ class Menu():
 
         self.img = py.image.load("assets/start.png").convert_alpha()
         self.bg = background.Background(0,0)
+
+        py.mixer.music.load('assets/game_music.mp3')
+        py.mixer.music.play(-1)
 
         self.title = py.font.Font('assets/dogica.ttf', 40)
         self.title_2 = py.font.Font('assets/dogica.ttf', 15)
