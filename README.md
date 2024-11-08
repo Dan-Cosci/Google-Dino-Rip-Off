@@ -1,15 +1,35 @@
 # DINO RUNNER RIP OFF
 
-## FOREWORD
-So this is yet another game that I made but this time I used the pygame module of python to make this thing work. Being inspired by the Google Dino offline game I wanted to create a version of it on my own. So this is just gonna a random mini-project once again before I try to make something more idiotic than this brain-dead game.
+## Description
+This is a simple game inspired by the Google Chrome Dino offline game. It is built using Python's `pygame` module. The game is a mini-project meant for fun and as practice before tackling more complex projects.
 
-## REQUIREMENTS
-The requirements to run this code is just python and and install the pygame module using the pip command
-```
-python pip install pygame
+## Requirements
+To run this game, you will need Python and the `pygame` library. The specific versions used are:
+- **Python** = 3.12.7
+- **Pygame** = 2.6.1
+
+### Installation Instructions
+
+1. **Clone the Repository**  
+   First, clone this repository to your local machine using Git:
+   ```bash
+   git clone https://github.com/your-username/dino-runner-ripoff.git
+   cd dino-runner-ripoff
+   ```
+
+2. **Install Dependencies**  
+   Install the `pygame` module via `pip`:
+   ```bash
+   python -m pip install pygame
+   ```
+
+## How to Run
+The main script to start the game is `main.py`. Run the game with the following command:
+```bash
+python main.py
 ```
 
-```
-python  = 3.12.7
-pygame  = 2.6.1 
-```
+## Reflection
+This project was started on October 30, 2024, as a fun exercise during a break from college work. It was challenging due to limited references (relying solely on `pygame` documentation without AI assistance). Completing it was a rewarding experience and a great learning opportunity, especially in managing project scaling and debugging. 
+
+Looking forward to more projects ahead!
