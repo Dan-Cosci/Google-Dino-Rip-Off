@@ -23,7 +23,7 @@ class Menu():
         self.clock = py.time.Clock()                                        # FPS    
         self.screen = py.display.set_mode((config.SCRWID, config.SCRHEI))   # Main window
         py.display.set_caption("Dino Game Rip Off")                         # Window caption
-        py.display.set_icon(py.image.load("assets/standing.png"))           # Window  Icon
+        py.display.set_icon(py.image.load("assets/icon.png"))               # Window  Icon
 
         # images
         self.img = py.image.load("assets/start.png").convert_alpha()        # Load start.png

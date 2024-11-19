@@ -28,6 +28,9 @@ The main script to start the game is `main.py`. Run the game with the following 
 ```bash
 python main.py
 ```
+or you can just donwload the zip file using press the link below:
+[Download the game](https://raw.githubusercontent.com/Dan-Cosci/Google-Dino-Rip-Off/main/game.zip)
+
 
 ## Reflection
 This project was started on October 30, 2024, as a fun exercise during a break from college work. It was challenging due to limited references (relying solely on `pygame` documentation without AI assistance). Completing it was a rewarding experience and a great learning opportunity, especially in managing project scaling and debugging. 

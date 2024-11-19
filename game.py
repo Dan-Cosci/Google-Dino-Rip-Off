@@ -11,7 +11,7 @@ class Game():
         self.clock = py.time.Clock()
         self.screen = py.display.set_mode((scrwid, scrhei))
         py.display.set_caption("Dino Game Rip Off")
-        py.display.set_icon(py.image.load("assets/frame_1.png"))
+        py.display.set_icon(py.image.load("assets/icon.png"))
         
         self.background = background.Background(0,0)
 
